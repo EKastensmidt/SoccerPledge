@@ -15,7 +15,6 @@ public class SoccerPlayerController : SoccerPlayer
     {
         if (!photonView.IsMine) return;
         Move();
-        UpdateAnimations(movement);
     }
 
     private void Move() 
@@ -27,12 +26,14 @@ public class SoccerPlayerController : SoccerPlayer
 
         if(x < 0)
         {
-            Sprite.flipX = true;
+            transform.localScale = new Vector3(-1, 1, 1);
         }
         else
         {
-            Sprite.flipX = false;
+            transform.localScale = new Vector3(1, 1, 1);
         }
+
+        UpdateAnimations(movement);
     }
 
     private void UpdateAnimations(Vector3 movement)
