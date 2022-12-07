@@ -9,11 +9,16 @@ public class SoccerPlayer : MonoBehaviourPun
     [SerializeField] private Animator animator;
     [SerializeField] private PhotonView pv;
     private Vector2 initialPos;
+    private Vector3 movement;
+
+    private bool hasBall = false;
 
     public float Speed { get => speed; set => speed = value; }
     public Animator Animator { get => animator; set => animator = value; }
     public PhotonView Pv { get => pv; set => pv = value; }
     public Vector2 InitialPos { get => initialPos; set => initialPos = value; }
+    public bool HasBall { get => hasBall; set => hasBall = value; }
+    public Vector3 Movement { get => movement; set => movement = value; }
 
     public virtual void Start()
     {
@@ -24,4 +29,6 @@ public class SoccerPlayer : MonoBehaviourPun
     {
         
     }
+
+   
 }

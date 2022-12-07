@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SoccerPlayerController : SoccerPlayer
 {
-    private Vector3 movement;
 
     public override void Start()
     {
@@ -21,8 +20,8 @@ public class SoccerPlayerController : SoccerPlayer
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
-        movement = new Vector3(x, y, 0);
-        transform.position += movement * Time.deltaTime * Speed;
+        Movement = new Vector3(x, y, 0);
+        transform.position += Movement * Time.deltaTime * Speed;
 
         if(x < 0)
         {
@@ -33,7 +32,7 @@ public class SoccerPlayerController : SoccerPlayer
             transform.localScale = new Vector3(1, 1, 1);
         }
 
-        UpdateAnimations(movement);
+        UpdateAnimations(Movement);
     }
 
     private void UpdateAnimations(Vector3 movement)
@@ -42,4 +41,5 @@ public class SoccerPlayerController : SoccerPlayer
         Animator.SetFloat("MovY", movement.y);
         Animator.SetFloat("Magnitude", movement.magnitude);
     }
+
 }
