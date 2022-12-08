@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class SoccerPlayerController : SoccerPlayer
 {
@@ -22,8 +23,13 @@ public class SoccerPlayerController : SoccerPlayer
         float y = Input.GetAxis("Vertical");
         Movement = new Vector3(x, y, 0);
         transform.position += Movement * Time.deltaTime * Speed;
+        Debug.Log(Movement);
+        if (Movement != Vector3.zero)
+        {
+            BallPos.position = transform.position + Movement;
+        }
 
-        if(x < 0)
+        if (x < 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }

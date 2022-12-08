@@ -11,7 +11,7 @@ public class Ball : MonoBehaviourPun
     {
         if (currentCarrier != null)
         {
-            transform.position = currentCarrier.transform.position + Vector3.up;
+            transform.position = currentCarrier.BallPos.position;
         }
     }
 
