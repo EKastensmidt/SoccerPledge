@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviourPun
     public static bool isGameStarted = false;
 
     private List<SoccerPlayer> playerList;
+    private Ball ball;
+
+    public Ball Ball { get => ball; set => ball = value; }
 
     private void Start()
     {
@@ -56,7 +59,14 @@ public class GameManager : MonoBehaviourPun
         if (PhotonNetwork.IsMasterClient)
         {
             pv.RPC("ResetPlayerPositions", RpcTarget.All);
+            SpawnBall();
         }
+    }
+
+    public void SpawnBall()
+    {
+        GameObject ballObject = PhotonNetwork.Instantiate("Ball", new Vector3(0, -1.6f), Quaternion.identity);
+        ball = ballObject.GetComponent<Ball>();
     }
 
     [PunRPC]

@@ -11,6 +11,7 @@ public class SoccerPlayer : MonoBehaviourPun
     private Vector2 initialPos;
     private Vector3 movement;
     [SerializeField] private Transform ballPos;
+    [SerializeField] protected float forceMultiplier;
 
     private bool hasBall = false;
 
@@ -29,5 +30,11 @@ public class SoccerPlayer : MonoBehaviourPun
 
     public virtual void Update()
     {
+    }
+
+    [PunRPC]
+    public void HasReleasedBall()
+    {
+        hasBall = false;
     }
 }

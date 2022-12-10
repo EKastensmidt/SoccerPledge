@@ -15,6 +15,7 @@ public class SoccerPlayerController : SoccerPlayer
     {
         if (!photonView.IsMine) return;
         Move();
+        Shoot();
     }
 
     private void Move() 
@@ -23,7 +24,6 @@ public class SoccerPlayerController : SoccerPlayer
         float y = Input.GetAxis("Vertical");
         Movement = new Vector3(x, y, 0);
         transform.position += Movement * Time.deltaTime * Speed;
-        Debug.Log(Movement);
         if (Movement != Vector3.zero)
         {
             BallPos.position = transform.position + Movement;
@@ -46,6 +46,15 @@ public class SoccerPlayerController : SoccerPlayer
         Animator.SetFloat("MovX", movement.x);
         Animator.SetFloat("MovY", movement.y);
         Animator.SetFloat("Magnitude", movement.magnitude);
+    }
+
+    private void Shoot()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && HasBall)
+        {
+            MasterManager._instance.RPCMaster("RequestMoveBall", transform.position, forceMultiplier);
+            Pv.RPC("HasReleasedBall", RpcTarget.All);
+        }
     }
 
 }

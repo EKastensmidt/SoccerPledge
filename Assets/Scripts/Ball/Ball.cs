@@ -7,9 +7,17 @@ public class Ball : MonoBehaviourPun
 {
     [SerializeField] private PhotonView pv;
     private SoccerPlayer currentCarrier;
+    private Rigidbody2D rb;
+    private void Start()
+    {
+        if (PhotonNetwork.IsMasterClient) {
+            rb = GetComponent<Rigidbody2D>();
+        }
+    }
+
     private void Update()
     {
-        if (currentCarrier != null)
+        if (currentCarrier != null && currentCarrier.HasBall)
         {
             transform.position = currentCarrier.BallPos.position;
         }
@@ -30,16 +38,25 @@ public class Ball : MonoBehaviourPun
     public void SetCarrier(SoccerPlayer carrier)
     {
         currentCarrier = carrier;
+        currentCarrier.HasBall = true;
         pv.RPC("UpdateTarget", RpcTarget.Others, carrier.photonView.ViewID);
+    }
+
+    public void MoveBall(Vector3 soccerPlayerPos, float forceMultiplier)
+    {
+        rb.AddForce((transform.position - soccerPlayerPos) * forceMultiplier);
     }
 
     [PunRPC]
     public void UpdateTarget(int id)
     {
         PhotonView view = PhotonView.Find(id);
+        Debug.Log("view");
         if (view != null)
         {
             currentCarrier = view.gameObject.GetComponent<SoccerPlayer>();
+            currentCarrier.HasBall = true;
+            Debug.Log("asdasd");
         }
     }
 }

@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 7896845562550976119}
   - component: {fileID: 6318946297380943467}
   - component: {fileID: 3518329921751664055}
+  - component: {fileID: 2459347701134416906}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -245,7 +246,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6774228381047434772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +268,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 4923528315969512850}
   - {fileID: 7896845562550976119}
+  - {fileID: 2459347701134416906}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -285,7 +287,7 @@ MonoBehaviour:
   m_PositionModel:
     SynchronizeEnabled: 1
     TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 2
+    TeleportIfDistanceGreaterThan: 1
     InterpolateOption: 2
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 1
@@ -346,6 +348,7 @@ MonoBehaviour:
   animator: {fileID: 3518329921751664055}
   pv: {fileID: 6774228381047434772}
   ballPos: {fileID: 8817154223213997924}
+  forceMultiplier: 400
 --- !u!95 &3518329921751664055
 Animator:
   serializedVersion: 3
@@ -365,3 +368,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2459347701134416906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4539832893603034036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3

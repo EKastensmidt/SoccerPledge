@@ -44,6 +44,8 @@ MonoBehaviour:
   - UpdateTarget
   - UpdateMovement
   - UpdateBallPosition
+  - HasReleasedBall
+  - RequestMoveBall
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
