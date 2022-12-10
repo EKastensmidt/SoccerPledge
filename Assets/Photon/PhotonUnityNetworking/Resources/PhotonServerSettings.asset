@@ -46,6 +46,10 @@ MonoBehaviour:
   - UpdateBallPosition
   - HasReleasedBall
   - RequestMoveBall
+  - SetInitialPos
+  - SetWinner
+  - BlueScored
+  - RedScored
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

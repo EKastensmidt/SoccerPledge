@@ -25,7 +25,7 @@ public class SoccerPlayer : MonoBehaviourPun
 
     public virtual void Start()
     {
-        initialPos = transform.position;
+        pv.RPC("SetInitialPos", RpcTarget.All);
     }
 
     public virtual void Update()
@@ -36,5 +36,10 @@ public class SoccerPlayer : MonoBehaviourPun
     public void HasReleasedBall()
     {
         hasBall = false;
+    }
+    [PunRPC]
+    public void SetInitialPos()
+    {
+        initialPos = transform.position;
     }
 }

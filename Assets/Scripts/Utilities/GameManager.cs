@@ -10,14 +10,20 @@ public class GameManager : MonoBehaviourPun
 {
     [SerializeField] private PhotonView pv;
     [SerializeField] private Button masterStartButton;
-    [SerializeField] private TextMeshProUGUI startCountdownText;
-    [SerializeField] private GameObject waitingForMasterText;
+    [SerializeField] private TextMeshProUGUI startCountdownText, winnerText;
+    [SerializeField] private GameObject waitingForMasterText, redScored, blueScored;
     public static bool isGameStarted = false;
+    private int blueTeamScore;
+    private int redTeamScore;
 
     private List<SoccerPlayer> playerList;
     private Ball ball;
 
     public Ball Ball { get => ball; set => ball = value; }
+    public int BlueTeamScore { get => blueTeamScore; set => blueTeamScore = value; }
+    public int RedTeamScore { get => redTeamScore; set => redTeamScore = value; }
+
+    private bool IsEndOfGame = false;
 
     private void Start()
     {
@@ -56,9 +62,9 @@ public class GameManager : MonoBehaviourPun
         isGameStarted = true;
 
         playerList = GameObject.FindObjectsOfType<SoccerPlayer>().ToList();
+        pv.RPC("ResetPlayerPositions", RpcTarget.All);
         if (PhotonNetwork.IsMasterClient)
         {
-            pv.RPC("ResetPlayerPositions", RpcTarget.All);
             SpawnBall();
         }
     }
@@ -67,6 +73,78 @@ public class GameManager : MonoBehaviourPun
     {
         GameObject ballObject = PhotonNetwork.Instantiate("Ball", new Vector3(0, -1.6f), Quaternion.identity);
         ball = ballObject.GetComponent<Ball>();
+    }
+
+    public void TeamScored(string team)
+    {
+        if (IsEndOfGame)
+            return;
+
+        if(team == "RED")
+        {
+            redTeamScore++;
+            if (redTeamScore == 3)
+            {
+                pv.RPC("SetWinner", RpcTarget.All, "RED TEAM");
+                IsEndOfGame = true;
+            }
+        }
+        else
+        {
+            blueTeamScore++;
+            if (blueTeamScore == 3)
+            {
+                pv.RPC("SetWinner", RpcTarget.All, "BLUE TEAM");
+                IsEndOfGame = true;
+            }
+        }
+
+        if (IsEndOfGame == false)
+        {
+            StartCoroutine(AfterScore(team));
+        }
+    }
+
+    private IEnumerator AfterScore(string team)
+    {
+        if(team == "RED"){
+            pv.RPC("RedScored", RpcTarget.All, true);
+        }
+        else{
+            pv.RPC("BlueScored", RpcTarget.All, true);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        PhotonNetwork.Destroy(ball.gameObject);
+
+        yield return new WaitForSeconds(2f);
+
+        if (team == "RED"){
+            pv.RPC("RedScored", RpcTarget.All, false);
+        }
+        else{
+            pv.RPC("BlueScored", RpcTarget.All, false);
+        }
+        pv.RPC("ResetPlayerPositions", RpcTarget.All);
+        SpawnBall();
+    }
+    
+
+    [PunRPC]
+    public void SetWinner(string winningTeam)
+    {
+        winnerText.gameObject.SetActive(true);
+        winnerText.text = winningTeam + " WINS!!!";
+
+        if(winningTeam == "RED TEAM")
+        {
+            winnerText.color = Color.red;
+        }
+        else
+        {
+            winnerText.color = Color.blue;
+        }
     }
 
     [PunRPC]
@@ -90,5 +168,16 @@ public class GameManager : MonoBehaviourPun
             waitingForMasterText.SetActive(false);
         }
         StartCoroutine(WaitToStart());
+    }
+
+    [PunRPC]
+    public void RedScored(bool value)
+    {
+        redScored.SetActive(value);
+    }
+    [PunRPC]
+    public void BlueScored(bool value)
+    {
+        blueScored.SetActive(value);
     }
 }
