@@ -15,7 +15,7 @@ MonoBehaviour:
   AppSettings:
     AppIdRealtime: 655e0c41-513e-4560-b59d-4dec7e71b542
     AppIdFusion: 
-    AppIdChat: 
+    AppIdChat: 45490bc2-ba09-4120-84f3-e8fa44875cb3
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
@@ -53,6 +53,7 @@ MonoBehaviour:
   - RequestPlayerName
   - AddPlayerToDic
   - SetPlayerName
+  - GetChatMessage
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
