@@ -50,6 +50,9 @@ MonoBehaviour:
   - SetWinner
   - BlueScored
   - RedScored
+  - RequestPlayerName
+  - AddPlayerToDic
+  - SetPlayerName
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

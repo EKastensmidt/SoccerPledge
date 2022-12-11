@@ -14,6 +14,7 @@ public class SoccerPlayerController : SoccerPlayer
     public override void Update()
     {
         if (!photonView.IsMine) return;
+        base.Update();
         Move();
         Shoot();
     }

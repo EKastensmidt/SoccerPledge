@@ -2,11 +2,11 @@
 	[] Sincronizar tiempo.
 	[] Sincronizar animaciones hinchada.
 	[X] Pegarle a la pelota.
-	[] Pedirle nombre de jugador)?
+	[]
 	[]
 	[]
 
-2)[] Photon Chat: Juancito lo tiene que agregar, despues agregar 3 comandos de cliente y 3 de master que afecte a clientes.
+2)[] Photon Chat: despues agregar 3 comandos de cliente y 3 de master que afecte a clientes.
 	Cliente:
 		[] Mostrar Ping.
 		[] Whisper.
@@ -16,12 +16,12 @@
 		[] Equipo gana instantaneamente.
 		[] Incrementar velocidad de pelota)?
 
-3)[] Photon Voice: Juancito lo tiene que agregar.
+3)[] Photon Voice:
 	[] Mostrar quien esta hablando)?
 
 4)[] UI:
 	[] Puntajes de equipos.
-	[] Nombres de Jugadores.
+	[X] Nombres de Jugadores.
 	[] Tiempo transcurrido.
 	[] Ping.
 
