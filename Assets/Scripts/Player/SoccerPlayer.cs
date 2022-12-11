@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class SoccerPlayer : MonoBehaviourPun
 {
@@ -12,9 +13,9 @@ public class SoccerPlayer : MonoBehaviourPun
     private Vector3 movement;
     [SerializeField] private Transform ballPos;
     [SerializeField] protected float forceMultiplier;
+    [SerializeField] private TextMeshPro playerName;
 
     private bool hasBall = false;
-
     public float Speed { get => speed; set => speed = value; }
     public Animator Animator { get => animator; set => animator = value; }
     public PhotonView Pv { get => pv; set => pv = value; }
@@ -26,10 +27,12 @@ public class SoccerPlayer : MonoBehaviourPun
     public virtual void Start()
     {
         pv.RPC("SetInitialPos", RpcTarget.All);
+        pv.RPC("SetPlayerName", RpcTarget.All);
     }
 
     public virtual void Update()
     {
+        playerName.gameObject.transform.position = transform.position + new Vector3(0,0.5f);
     }
 
     [PunRPC]
@@ -37,9 +40,16 @@ public class SoccerPlayer : MonoBehaviourPun
     {
         hasBall = false;
     }
+
     [PunRPC]
     public void SetInitialPos()
     {
         initialPos = transform.position;
+    }
+
+    [PunRPC]
+    public void SetPlayerName()
+    {
+        playerName.text = PhotonNetwork.LocalPlayer.NickName;
     }
 }
