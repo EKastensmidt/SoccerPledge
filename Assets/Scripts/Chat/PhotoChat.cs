@@ -14,6 +14,7 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
     ChatClient chatClient;
     string command = "w/";
     string commandRoll = "r/";
+    string commandPing = "p/";
 
     string channel;
     private void Start()
@@ -52,8 +53,14 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
         {
             var numero = Random.Range(1,100);
             message = numero.ToString();
-            message = "<color=green>" + "Roll " + "</color>" + message;
+            message = "<color=orange>" + "Roll " + "</color>" + message;
             //content.text = "<color=green>" + "Roll " + "</color>";
+            chatClient.PublishMessage(channel, message);
+            inputField.text = " ";
+        }
+        else if (words[0] == commandPing)
+        {
+            message = "<color=orange>" + "My Ping is: " + "</color>" + PhotonNetwork.GetPing().ToString();
             chatClient.PublishMessage(channel, message);
             inputField.text = " ";
         }

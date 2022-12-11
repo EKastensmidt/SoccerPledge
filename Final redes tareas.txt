@@ -8,10 +8,9 @@
 
 2)[] Photon Chat: despues agregar 3 comandos de cliente y 3 de master que afecte a clientes.
 	Cliente:
-		[] Mostrar Ping.
+		[X] Mostrar Ping.
 		[X] Whisper.
 		[X] Roll.
-		[] Cambiar de equipo)?
 	Master:
 		[] Desconectar Jugador)?
 		[] Equipo gana instantaneamente.
