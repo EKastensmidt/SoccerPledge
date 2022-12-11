@@ -1,0 +1,30 @@
+1)[] MasterManager: 6 cositas que usen master manager:
+	[] Sincronizar tiempo.
+	[] Sincronizar animaciones hinchada.
+	[X] Pegarle a la pelota.
+	[] Pedirle nombre de jugador)?
+	[]
+	[]
+
+2)[] Photon Chat: Juancito lo tiene que agregar, despues agregar 3 comandos de cliente y 3 de master que afecte a clientes.
+	Cliente:
+		[] Mostrar Ping.
+		[] Whisper.
+		[] Cambiar de equipo)?
+	Master:
+		[] Desconectar Jugador)?
+		[] Equipo gana instantaneamente.
+		[] Incrementar velocidad de pelota)?
+
+3)[] Photon Voice: Juancito lo tiene que agregar.
+	[] Mostrar quien esta hablando)?
+
+4)[] UI:
+	[] Puntajes de equipos.
+	[] Nombres de Jugadores.
+	[] Tiempo transcurrido.
+	[] Ping.
+
+5)[] Objetos en escena:
+	[] Hacer Sprites de Jugadores de equipo rojo y hacer prefab de jugador rojo.
+	[] Hinchada (Con sus animaciones).
