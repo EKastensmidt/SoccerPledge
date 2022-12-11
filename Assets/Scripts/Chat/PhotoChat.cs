@@ -48,10 +48,12 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
             content.text += "<color=blue>" + "No existe target" + "</color>" + "\n";
             inputField.text = " ";
         }
-        else if (words.Length > 2 && words[0] == commandRoll)
+        else if (words[0] == commandRoll)
         {
             var numero = Random.Range(1,100);
             message = numero.ToString();
+            message = "<color=green>" + "Roll " + "</color>" + message;
+            //content.text = "<color=green>" + "Roll " + "</color>";
             chatClient.PublishMessage(channel, message);
             inputField.text = " ";
         }
