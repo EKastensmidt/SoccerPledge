@@ -5,10 +5,13 @@ using Photon.Pun;
 
 public class SoccerPlayerController : SoccerPlayer
 {
+    private GameObject chat;
+    bool ischatHidden = false;
 
     public override void Start()
     {
         base.Start();
+        chat = GameObject.Find("Chat");
     }
 
     public override void Update()
@@ -17,6 +20,7 @@ public class SoccerPlayerController : SoccerPlayer
         base.Update();
         Move();
         Shoot();
+        HideShowChat();
     }
 
     private void Move() 
@@ -55,6 +59,23 @@ public class SoccerPlayerController : SoccerPlayer
         {
             MasterManager._instance.RPCMaster("RequestMoveBall", transform.position, forceMultiplier);
             Pv.RPC("HasReleasedBall", RpcTarget.All);
+        }
+    }
+
+    private void HideShowChat()
+    {
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            if (!ischatHidden)
+            {
+                chat.transform.position += Vector3.right * 1000f;
+                ischatHidden = true;
+            }
+            else
+            {
+                chat.transform.position += Vector3.left * 1000f;
+                ischatHidden = false;
+            }
         }
     }
 
