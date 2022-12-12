@@ -1,5 +1,5 @@
 1)[] MasterManager: 6 cositas que usen master manager:
-	[] Sincronizar tiempo.
+	[X] Sincronizar tiempo.
 	[] Sincronizar animaciones hinchada.
 	[X] Pegarle a la pelota.
 	[] con la e cambiar el color de la pelota y reducirle la masa para el siguiente disparo (? cuenta doble*
@@ -19,11 +19,11 @@
 3)[] Photon Voice:
 	[] Mostrar quien esta hablando)? si es master manager destruir photon voice (?
 
-4)[] UI:
-	[] Puntajes de equipos.
+4)[X] UI:
+	[X] Puntajes de equipos.
 	[X] Nombres de Jugadores.
-	[] Tiempo transcurrido.
-	[] Ping.
+	[X] Tiempo transcurrido.
+	[X] Ping.
 
 5)[] Objetos en escena:
 	[X] Hacer Sprites de Jugadores de equipo rojo y hacer prefab de jugador rojo.
