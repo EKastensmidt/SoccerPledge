@@ -22,8 +22,10 @@ public class GameManager : MonoBehaviourPun
     public Ball Ball { get => ball; set => ball = value; }
     public int BlueTeamScore { get => blueTeamScore; set => blueTeamScore = value; }
     public int RedTeamScore { get => redTeamScore; set => redTeamScore = value; }
+    public PhotonView Pv { get => pv; set => pv = value; }
+    public bool IsEndOfGame { get => isEndOfGame; set => isEndOfGame = value; }
 
-    private bool IsEndOfGame = false;
+    private bool isEndOfGame = false;
 
     private void Start()
     {

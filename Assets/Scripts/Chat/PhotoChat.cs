@@ -9,12 +9,16 @@ using TMPro;
 
 public class PhotoChat : MonoBehaviour, IChatClientListener
 {
+    public GameManager gameManager;
     public TextMeshProUGUI content;
     public TMP_InputField inputField;
     ChatClient chatClient;
     string command = "w/";
     string commandRoll = "r/";
     string commandPing = "p/";
+    string commandWin = "win/";
+    string commandKick = "kick/";
+
 
     string channel;
     private void Start()
@@ -34,7 +38,7 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
         if (string.IsNullOrEmpty(message) || string.IsNullOrWhiteSpace(message)) return;
         string[] words = message.Split(' ');
 
-        if (words.Length > 2 && words[0] == command)
+        if (words.Length > 2 && words[0] == command)  
         {
             var target = words[1];
             foreach (var currentPlayer in PhotonNetwork.PlayerList)
@@ -43,6 +47,28 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
                 {
                     var currentMessage = string.Join(" ", words, 2, words.Length - 2);
                     chatClient.SendPrivateMessage(target, currentMessage);
+                    return;
+                }
+            }
+            content.text += "<color=blue>" + "No existe target" + "</color>" + "\n";
+            inputField.text = " ";
+        }
+        else if (words.Length > 1 && words[0] == commandKick)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                content.text += "<color=blue>" + "No tenes permiso para usar este comando" + "</color>" + "\n";
+                inputField.text = " ";
+                return;
+            }
+            var target = words[1];
+            foreach (var currentPlayer in PhotonNetwork.PlayerList)
+            {
+                if (target == currentPlayer.NickName)
+                {
+                    var currentMessage = "<color=red>" + "Has sido kickeado bobo" + "</color>";
+                    chatClient.SendPrivateMessage(target, currentMessage);
+                    PhotonNetwork.CloseConnection(currentPlayer);
                     return;
                 }
             }
@@ -62,6 +88,32 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
         {
             message = "<color=orange>" + "My Ping is: " + "</color>" + PhotonNetwork.GetPing().ToString();
             chatClient.PublishMessage(channel, message);
+            inputField.text = " ";
+        }
+        else if (words.Length >= 1 && words[0] == commandWin)
+        {
+            var target = words[1];
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                content.text += "<color=blue>" + "No tenes permiso para usar este comando" + "</color>" + "\n";
+                inputField.text = " ";
+                return;
+            }
+            if (target == "RED")
+            {
+                gameManager.Pv.RPC("SetWinner", RpcTarget.All, "RED TEAM");
+                gameManager.IsEndOfGame = true;
+            }
+            else if (target == "BLUE")
+            {
+                gameManager.Pv.RPC("SetWinner", RpcTarget.All, "BLUE TEAM");
+                gameManager.IsEndOfGame = true;
+
+            }
+            else
+            {
+                content.text += "<color=blue>" + "El comando no existe" + "</color>" + "\n";
+            }
             inputField.text = " ";
         }
         else

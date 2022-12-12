@@ -2,9 +2,9 @@
 	[] Sincronizar tiempo.
 	[] Sincronizar animaciones hinchada.
 	[X] Pegarle a la pelota.
-	[]
-	[]
-	[]
+	[] con la e cambiar el color de la pelota y reducirle la masa para el siguiente disparo (? cuenta doble*
+	[] con la e cambiar el color de la pelota y reducirle la masa para el siguiente disparo (? cuenta doble*
+	[] mas chico el jugador y mas rapido o mas grande para bloquear una pelota (?
 
 2)[] Photon Chat: despues agregar 3 comandos de cliente y 3 de master que afecte a clientes.
 	Cliente:
@@ -13,7 +13,7 @@
 		[X] Roll.
 	Master:
 		[] Desconectar Jugador)?
-		[] Equipo gana instantaneamente.
+		[X] Equipo gana instantaneamente.
 		[] Incrementar velocidad de pelota)?
 
 3)[] Photon Voice:
@@ -26,5 +26,5 @@
 	[] Ping.
 
 5)[] Objetos en escena:
-	[] Hacer Sprites de Jugadores de equipo rojo y hacer prefab de jugador rojo.
+	[X] Hacer Sprites de Jugadores de equipo rojo y hacer prefab de jugador rojo.
 	[] Hinchada (Con sus animaciones).
