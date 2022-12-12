@@ -6,27 +6,31 @@ using Photon.Voice.Unity;
 
 public class VoiceUi : MonoBehaviourPun
 {
-    public Recorder mic;
-    MicUi micUi;
+    Recorder mic;
+    [SerializeField]private GameObject micUi;
 
     private void Awake()
     {
-        if (photonView.IsMine)
-        {
-            micUi = FindObjectOfType<MicUi>();
-        }
+        if (PhotonNetwork.IsMasterClient)
+            Destroy(this);
+
+        mic = GameObject.Find("VoiceManager").GetComponent<Recorder>();
+        mic.TransmitEnabled = false;
+
+        micUi.SetActive(false);
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
             mic.TransmitEnabled = true;
-            micUi.Show(true);
+            micUi.SetActive(true);
         }
         else if (Input.GetKeyUp(KeyCode.T))
         {
             mic.TransmitEnabled = false;
-            micUi.Show(false);
+            micUi.SetActive(false);
         }
     }
 }

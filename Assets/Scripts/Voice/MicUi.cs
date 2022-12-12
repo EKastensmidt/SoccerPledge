@@ -11,5 +11,4 @@ public class MicUi : MonoBehaviour
     {
         sprite.enabled = v;
     }
-
 }
