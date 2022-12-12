@@ -27,12 +27,20 @@ public class SoccerPlayer : MonoBehaviourPun
     public virtual void Start()
     {
         pv.RPC("SetInitialPos", RpcTarget.All);
-        pv.RPC("SetPlayerName", RpcTarget.All);
+        SetPlayerName();
     }
 
     public virtual void Update()
     {
         playerName.gameObject.transform.position = transform.position + new Vector3(0,0.5f);
+    }
+
+    private void SetPlayerName()
+    {
+        if (photonView.IsMine)
+        {
+            photonView.RPC("RequestName", RpcTarget.AllBuffered);
+        }
     }
 
     [PunRPC]
@@ -48,8 +56,8 @@ public class SoccerPlayer : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void SetPlayerName()
+    public void RequestName()
     {
-        playerName.text = PhotonNetwork.LocalPlayer.NickName;
+        playerName.text = pv.Owner.NickName;
     }
 }
