@@ -17,7 +17,7 @@
 		[] Incrementar velocidad de pelota)?
 
 3)[] Photon Voice:
-	[] Mostrar quien esta hablando)?
+	[] Mostrar quien esta hablando)? si es master manager destruir photon voice (?
 
 4)[] UI:
 	[] Puntajes de equipos.
