@@ -15,8 +15,8 @@ MonoBehaviour:
   AppSettings:
     AppIdRealtime: 655e0c41-513e-4560-b59d-4dec7e71b542
     AppIdFusion: 
-    AppIdChat: 45490bc2-ba09-4120-84f3-e8fa44875cb3
-    AppIdVoice: 
+    AppIdChat: 4e5855ab-81c4-4e86-9df8-4716c487a4dc
+    AppIdVoice: 1e763873-999a-4130-a0f0-e7ebcbb9a9ce
     AppVersion: 
     UseNameServer: 1
     FixedRegion: 
@@ -34,31 +34,28 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - CantHearYou
+  - ChangeColour
   - ClickRpc
   - DestroyRpc
+  - HeresWhy
+  - AddPlayerToDic
+  - BlueScored
   - DestroySpaceship
   - Fire
-  - RespawnSpaceship
   - GameStarted
-  - ResetPlayerPositions
-  - UpdateTarget
-  - UpdateMovement
-  - UpdateBallPosition
+  - GetChatMessage
   - HasReleasedBall
+  - RedScored
   - RequestMoveBall
+  - RequestName
+  - ResetPlayerPositions
+  - RespawnSpaceship
   - SetInitialPos
   - SetWinner
-  - BlueScored
-  - RedScored
-  - RequestPlayerName
-  - AddPlayerToDic
-  - SetPlayerName
-  - GetChatMessage
-  - RequestName
-  - UpdateTime
   - SyncTime
-  - SyncTeamScores
+  - UpdateTarget
   - UpdateTeamScore
   DisableAutoOpenWizard: 1
   ShowSettings: 1
-  DevRegionSetOnce: 1
+  DevRegionSetOnce: 0
