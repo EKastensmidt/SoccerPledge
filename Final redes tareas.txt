@@ -12,7 +12,7 @@
 		[X] Whisper.
 		[X] Roll.
 	Master:
-		[] Desconectar Jugador)?
+		[X] Kick Player
 		[X] Equipo gana instantaneamente.
 		[] Incrementar velocidad de pelota)?
 
