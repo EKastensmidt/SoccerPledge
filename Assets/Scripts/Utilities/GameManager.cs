@@ -10,11 +10,12 @@ public class GameManager : MonoBehaviourPun
 {
     [SerializeField] private PhotonView pv;
     [SerializeField] private Button masterStartButton;
-    [SerializeField] private TextMeshProUGUI startCountdownText, winnerText;
+    [SerializeField] private TextMeshProUGUI startCountdownText, winnerText, timeText, redScore, blueScore;
     [SerializeField] private GameObject waitingForMasterText, redScored, blueScored;
     public static bool isGameStarted = false;
     private int blueTeamScore;
     private int redTeamScore;
+    private float currentTime = 0f;
 
     private List<SoccerPlayer> playerList;
     private Ball ball;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviourPun
     public int RedTeamScore { get => redTeamScore; set => redTeamScore = value; }
     public PhotonView Pv { get => pv; set => pv = value; }
     public bool IsEndOfGame { get => isEndOfGame; set => isEndOfGame = value; }
+    public float CurrentTime { get => currentTime; set => currentTime = value; }
 
     private bool isEndOfGame = false;
 
@@ -31,6 +33,10 @@ public class GameManager : MonoBehaviourPun
     {
         SetStartRequirements();
         playerList = new List<SoccerPlayer>();
+    }
+    private void Update()
+    {
+        SetTime();
     }
 
 
@@ -82,64 +88,81 @@ public class GameManager : MonoBehaviourPun
         if (IsEndOfGame)
             return;
 
-        if(team == "RED")
+        if (team == "RED")
         {
-            redTeamScore++;
+            pv.RPC("UpdateTeamScore", RpcTarget.All, team);
+            pv.RPC("RedScored", RpcTarget.All, true);
             if (redTeamScore == 3)
             {
-                pv.RPC("SetWinner", RpcTarget.All, "RED TEAM");
+                pv.RPC("SetWinner", RpcTarget.All, team);
                 IsEndOfGame = true;
             }
         }
         else
         {
-            blueTeamScore++;
+            pv.RPC("UpdateTeamScore", RpcTarget.All, team);
+            pv.RPC("BlueScored", RpcTarget.All, true);
             if (blueTeamScore == 3)
             {
-                pv.RPC("SetWinner", RpcTarget.All, "BLUE TEAM");
+                pv.RPC("SetWinner", RpcTarget.All, team);
                 IsEndOfGame = true;
             }
         }
-
-        if (IsEndOfGame == false)
-        {
-            StartCoroutine(AfterScore(team));
-        }
+        StartCoroutine(AfterScore(team));
     }
 
     private IEnumerator AfterScore(string team)
     {
-        if(team == "RED"){
-            pv.RPC("RedScored", RpcTarget.All, true);
-        }
-        else{
-            pv.RPC("BlueScored", RpcTarget.All, true);
-        }
-
         yield return new WaitForSeconds(1f);
 
         PhotonNetwork.Destroy(ball.gameObject);
 
         yield return new WaitForSeconds(2f);
 
-        if (team == "RED"){
+        if (team == "RED") {
             pv.RPC("RedScored", RpcTarget.All, false);
         }
-        else{
+        else {
             pv.RPC("BlueScored", RpcTarget.All, false);
         }
-        pv.RPC("ResetPlayerPositions", RpcTarget.All);
-        SpawnBall();
+
+        if (IsEndOfGame == false)
+        {
+            pv.RPC("ResetPlayerPositions", RpcTarget.All);
+            SpawnBall();
+        }
     }
-    
+
+    private int minutes, seconds;
+    private float syncCd = 3f;
+    private void SetTime()
+    {
+        if (!isGameStarted) return;
+
+        currentTime += Time.deltaTime;
+        minutes = (int)(currentTime / 60f);
+        seconds = (int)(currentTime - minutes * 60f);
+        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            if (syncCd <= 0f)
+            {
+                MasterManager._instance.RPCMaster("SyncTime", currentTime);
+                syncCd = 3f;
+            }
+            syncCd -= Time.deltaTime;
+        }
+    }
+
 
     [PunRPC]
     public void SetWinner(string winningTeam)
     {
         winnerText.gameObject.SetActive(true);
-        winnerText.text = winningTeam + " WINS!!!";
+        winnerText.text = winningTeam + " TEAM WINS!!!";
 
-        if(winningTeam == "RED TEAM")
+        if (winningTeam == "RED")
         {
             winnerText.color = Color.red;
         }
@@ -173,13 +196,24 @@ public class GameManager : MonoBehaviourPun
     }
 
     [PunRPC]
+    public void UpdateTeamScore(string team)
+    {
+        if (team == "RED")
+            redTeamScore++;
+        else
+            blueTeamScore++;
+    }
+
+    [PunRPC]
     public void RedScored(bool value)
     {
         redScored.SetActive(value);
+        redScore.text = redTeamScore.ToString();
     }
     [PunRPC]
     public void BlueScored(bool value)
     {
         blueScored.SetActive(value);
+        blueScore.text = blueTeamScore.ToString();
     }
 }

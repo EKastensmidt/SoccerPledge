@@ -47,4 +47,10 @@ public class MasterManager : MonoBehaviourPunCallbacks
     {
         gameManager.Ball.MoveBall(soccerPlayerPos, forceMultiplier);
     }
+
+    [PunRPC]
+    public void SyncTime(float currentTime)
+    {
+        currentTime = gameManager.CurrentTime;
+    }
 }
