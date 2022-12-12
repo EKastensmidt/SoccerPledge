@@ -70,3 +70,5 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Photon/PhotonVoice/PhotonVoiceLibs/x86_64/opus_egpv.dll.meta
+Assets/Photon/PhotonVoice/PhotonVoiceLibs/x86_64/opus_egpv.dll
