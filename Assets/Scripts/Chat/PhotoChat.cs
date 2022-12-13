@@ -18,6 +18,7 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
     string commandPing = "p/";
     string commandWin = "win/";
     string commandKick = "kick/";
+    string commandFastBall = "fball/";
 
 
     string channel;
@@ -26,6 +27,7 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
         chatClient = new ChatClient(this);
         chatClient.Connect(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat, PhotonNetwork.PhotonServerSettings.AppSettings.AppVersion,
             new AuthenticationValues(PhotonNetwork.NickName));
+        PhotonNetwork.EnableCloseConnection = true;
     }
     private void Update()
     {
@@ -38,6 +40,7 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
         if (string.IsNullOrEmpty(message) || string.IsNullOrWhiteSpace(message)) return;
         string[] words = message.Split(' ');
 
+        //WHISPER
         if (words.Length > 2 && words[0] == command)  
         {
             var target = words[1];
@@ -53,6 +56,8 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
             content.text += "<color=blue>" + "No existe target" + "</color>" + "\n";
             inputField.text = " ";
         }
+
+        //KICK
         else if (words.Length > 1 && words[0] == commandKick)
         {
             if (!PhotonNetwork.IsMasterClient)
@@ -75,6 +80,23 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
             content.text += "<color=blue>" + "No existe target" + "</color>" + "\n";
             inputField.text = " ";
         }
+        //FAST BALL
+        else if (words[0] == commandFastBall)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                content.text += "<color=blue>" + "No tenes permiso para usar este comando" + "</color>" + "\n";
+                inputField.text = " ";
+                return;
+            }
+
+            message = "<color=orange>" + "FastBall Activated" + "</color>";
+            chatClient.PublishMessage(channel, message);
+            gameManager.SetFastBall();
+            inputField.text = " ";
+        }
+
+        //ROLL
         else if (words[0] == commandRoll)
         {
             var numero = Random.Range(1,100);
@@ -84,12 +106,16 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
             chatClient.PublishMessage(channel, message);
             inputField.text = " ";
         }
+
+        //PING
         else if (words[0] == commandPing)
         {
             message = "<color=orange>" + "My Ping is: " + "</color>" + PhotonNetwork.GetPing().ToString();
             chatClient.PublishMessage(channel, message);
             inputField.text = " ";
         }
+
+        //SET WINNER
         else if (words.Length >= 1 && words[0] == commandWin)
         {
             var target = words[1];

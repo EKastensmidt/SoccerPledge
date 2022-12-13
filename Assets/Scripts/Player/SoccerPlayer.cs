@@ -12,7 +12,6 @@ public class SoccerPlayer : MonoBehaviourPun
     private Vector2 initialPos;
     private Vector3 movement;
     [SerializeField] private Transform ballPos;
-    [SerializeField] protected float forceMultiplier;
     [SerializeField] private TextMeshPro playerName;
 
     private bool hasBall = false;

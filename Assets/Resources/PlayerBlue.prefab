@@ -577,7 +577,6 @@ MonoBehaviour:
   animator: {fileID: 3518329921751664055}
   pv: {fileID: 6774228381047434772}
   ballPos: {fileID: 8817154223213997924}
-  forceMultiplier: 400
   playerName: {fileID: 8231172143262581056}
 --- !u!95 &3518329921751664055
 Animator:

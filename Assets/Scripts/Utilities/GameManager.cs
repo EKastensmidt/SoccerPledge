@@ -29,10 +29,13 @@ public class GameManager : MonoBehaviourPun
 
     private bool isEndOfGame = false;
 
+    private List<CrowdController> crowd;
+
     private void Start()
     {
         SetStartRequirements();
         playerList = new List<SoccerPlayer>();
+        crowd = GameObject.FindObjectsOfType<CrowdController>().ToList();
     }
     private void Update()
     {
@@ -92,6 +95,7 @@ public class GameManager : MonoBehaviourPun
         {
             pv.RPC("UpdateTeamScore", RpcTarget.All, team);
             pv.RPC("RedScored", RpcTarget.All, true);
+            UpdateCrowdAnimations(true, Team.red);
             if (redTeamScore == 3)
             {
                 pv.RPC("SetWinner", RpcTarget.All, team);
@@ -102,6 +106,7 @@ public class GameManager : MonoBehaviourPun
         {
             pv.RPC("UpdateTeamScore", RpcTarget.All, team);
             pv.RPC("BlueScored", RpcTarget.All, true);
+            UpdateCrowdAnimations(true, Team.blue);
             if (blueTeamScore == 3)
             {
                 pv.RPC("SetWinner", RpcTarget.All, team);
@@ -113,17 +118,17 @@ public class GameManager : MonoBehaviourPun
 
     private IEnumerator AfterScore(string team)
     {
-        yield return new WaitForSeconds(1f);
-
         PhotonNetwork.Destroy(ball.gameObject);
 
         yield return new WaitForSeconds(2f);
 
         if (team == "RED") {
             pv.RPC("RedScored", RpcTarget.All, false);
+            UpdateCrowdAnimations(false, Team.red);
         }
         else {
             pv.RPC("BlueScored", RpcTarget.All, false);
+            UpdateCrowdAnimations(false, Team.blue);
         }
 
         if (IsEndOfGame == false)
@@ -155,6 +160,19 @@ public class GameManager : MonoBehaviourPun
         }
     }
 
+    private void UpdateCrowdAnimations(bool value, Team team)
+    {
+        foreach (var fan in crowd)
+        {
+            Debug.Log(fan.name);
+            fan.UpdateAnimation(value, team);
+        }
+    }
+
+    public void SetFastBall()
+    {
+        ball.ForceMultiplier *= 2f;
+    }
 
     [PunRPC]
     public void SetWinner(string winningTeam)

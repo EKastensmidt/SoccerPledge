@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pv: {fileID: 5944820108001527980}
+  forceMultiplier: 400
 --- !u!114 &5944820108001527982
 MonoBehaviour:
   m_ObjectHideFlags: 0

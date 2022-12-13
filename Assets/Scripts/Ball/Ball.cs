@@ -8,6 +8,10 @@ public class Ball : MonoBehaviourPun
     [SerializeField] private PhotonView pv;
     private SoccerPlayer currentCarrier;
     private Rigidbody2D rb;
+    [SerializeField] private float forceMultiplier;
+
+    public float ForceMultiplier { get => forceMultiplier; set => forceMultiplier = value; }
+
     private void Start()
     {
         if (PhotonNetwork.IsMasterClient) {
@@ -42,7 +46,7 @@ public class Ball : MonoBehaviourPun
         pv.RPC("UpdateTarget", RpcTarget.Others, carrier.photonView.ViewID);
     }
 
-    public void MoveBall(Vector3 soccerPlayerPos, float forceMultiplier)
+    public void MoveBall(Vector3 soccerPlayerPos)
     {
         rb.AddForce((transform.position - soccerPlayerPos) * forceMultiplier);
     }

@@ -43,9 +43,9 @@ public class MasterManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void RequestMoveBall(Vector3 soccerPlayerPos, float forceMultiplier)
+    public void RequestMoveBall(Vector3 soccerPlayerPos)
     {
-        gameManager.Ball.MoveBall(soccerPlayerPos, forceMultiplier);
+        gameManager.Ball.MoveBall(soccerPlayerPos);
     }
 
     [PunRPC]

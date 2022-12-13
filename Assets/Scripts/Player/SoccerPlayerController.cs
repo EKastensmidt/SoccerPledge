@@ -57,7 +57,7 @@ public class SoccerPlayerController : SoccerPlayer
     {
         if (Input.GetKeyDown(KeyCode.Space) && HasBall)
         {
-            MasterManager._instance.RPCMaster("RequestMoveBall", transform.position, forceMultiplier);
+            MasterManager._instance.RPCMaster("RequestMoveBall", transform.position);
             Pv.RPC("HasReleasedBall", RpcTarget.All);
         }
     }
