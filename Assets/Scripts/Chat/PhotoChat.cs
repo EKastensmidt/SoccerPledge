@@ -19,6 +19,8 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
     string commandWin = "win/";
     string commandKick = "kick/";
     string commandFastBall = "fball/";
+    string commandServer = "server/";
+    string commandBallColor = "cball/";
 
 
     string channel;
@@ -93,6 +95,23 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
             message = "<color=orange>" + "FastBall Activated" + "</color>";
             chatClient.PublishMessage(channel, message);
             gameManager.SetFastBall();
+            inputField.text = " ";
+        }
+
+        //CHANGE BALL COLOR
+        else if(words.Length > 3 && words[0] == commandBallColor )
+        {
+            var r = words[1];
+            var g = words[2];
+            var b = words[3];
+            MasterManager._instance.RPCMaster("RequestChangeBallColor", r, g, b);
+            inputField.text = " ";
+        }
+
+        //SERVER
+        else if(words[0] == commandServer)
+        {
+            MasterManager._instance.RPCMaster("RequestServerInfo", PhotonNetwork.LocalPlayer);
             inputField.text = " ";
         }
 
@@ -247,5 +266,10 @@ public class PhotoChat : MonoBehaviour, IChatClientListener
 
     void IChatClientListener.OnUserUnsubscribed(string channel, string user)
     {
+    }
+
+    public void MasterSendMessage(string message, Photon.Realtime.Player client)
+    {
+        chatClient.SendPrivateMessage(client.NickName, message);
     }
 }

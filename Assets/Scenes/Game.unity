@@ -1946,6 +1946,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5875431526285799939, guid: ee21e6bbf130d1c47a2bed8d27fd23e9, type: 3}
   m_PrefabInstance: {fileID: 851782744}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &851782746 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5875431526285799951, guid: ee21e6bbf130d1c47a2bed8d27fd23e9, type: 3}
+  m_PrefabInstance: {fileID: 851782744}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afed277320621449aaacde1b707fe59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &900144266
 GameObject:
   m_ObjectHideFlags: 0
@@ -2030,7 +2041,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.5
+  m_fontSize: 23.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4186,6 +4197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 655001514}
+  photoChat: {fileID: 851782746}
 --- !u!1 &1969020796
 GameObject:
   m_ObjectHideFlags: 0

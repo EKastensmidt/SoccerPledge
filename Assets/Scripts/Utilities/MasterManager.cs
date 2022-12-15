@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using Photon.Chat;
+using System.Linq;
 
 public class MasterManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private PhotoChat photoChat;
     public static MasterManager _instance;
 
     Dictionary<Player, SoccerPlayer> _dicChars = new Dictionary<Player, SoccerPlayer>();
@@ -63,6 +66,30 @@ public class MasterManager : MonoBehaviourPunCallbacks
     {
         GameObject wall = PhotonNetwork.Instantiate("Wall", spawnPos, Quaternion.identity);
         StartCoroutine(DestroyObject(wall, 4f));
+    }
+
+    [PunRPC]
+    public void RequestServerInfo(Player client)
+    {
+        var currentMessage = "<color=orange>" + "Room Name:"+ PhotonNetwork.CurrentRoom.Name + " / Server Region:"+ PhotonNetwork.CloudRegion + "</color>";
+        photoChat.MasterSendMessage(currentMessage, client);
+    }
+
+    [PunRPC]
+    public void RequestChangeBallColor(string r, string g, string b)
+    {
+        photonView.RPC("ChangeBallColor", RpcTarget.AllBuffered, int.Parse(r), int.Parse(g), int.Parse(b));
+    }
+
+    [PunRPC]
+    public void ChangeBallColor(int r, int g, int b)
+    {
+        gameManager.Ball = FindObjectOfType<Ball>();
+
+        if (gameManager.Ball == null)
+            return;
+
+        gameManager.Ball.GetComponent<SpriteRenderer>().color = new Color(r, g, b);
     }
 
     private IEnumerator DestroyObject(GameObject obj, float time)

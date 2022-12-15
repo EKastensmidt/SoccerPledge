@@ -91,5 +91,4 @@ public class SoccerPlayerController : SoccerPlayer
         }
         spawnWallCd -= Time.deltaTime;
     }
-
 }
