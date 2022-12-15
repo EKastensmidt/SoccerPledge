@@ -49,8 +49,25 @@ public class MasterManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void SyncTime(float currentTime)
+    public void SyncTime(Player client)
     {
-        currentTime = gameManager.CurrentTime;
+        if (_dicChars.ContainsKey(client))
+        {
+            SoccerPlayer soccerPlayer = _dicChars[client];
+            soccerPlayer.GameManager.CurrentTime = gameManager.CurrentTime;
+        }
+    }
+
+    [PunRPC]
+    public void RequestSpawnWall(Vector3 spawnPos)
+    {
+        GameObject wall = PhotonNetwork.Instantiate("Wall", spawnPos, Quaternion.identity);
+        StartCoroutine(DestroyObject(wall, 4f));
+    }
+
+    private IEnumerator DestroyObject(GameObject obj, float time)
+    {
+        yield return new WaitForSeconds(time);
+        PhotonNetwork.Destroy(obj);
     }
 }

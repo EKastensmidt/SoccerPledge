@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviourPun
         {
             if (syncCd <= 0f)
             {
-                MasterManager._instance.RPCMaster("SyncTime", currentTime);
+                MasterManager._instance.RPCMaster("SyncTime", PhotonNetwork.LocalPlayer);
                 syncCd = 3f;
             }
             syncCd -= Time.deltaTime;

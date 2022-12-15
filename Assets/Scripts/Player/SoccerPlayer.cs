@@ -13,6 +13,7 @@ public class SoccerPlayer : MonoBehaviourPun
     private Vector3 movement;
     [SerializeField] private Transform ballPos;
     [SerializeField] private TextMeshPro playerName;
+    private GameManager gameManager;
 
     private bool hasBall = false;
     public float Speed { get => speed; set => speed = value; }
@@ -22,10 +23,13 @@ public class SoccerPlayer : MonoBehaviourPun
     public bool HasBall { get => hasBall; set => hasBall = value; }
     public Vector3 Movement { get => movement; set => movement = value; }
     public Transform BallPos { get => ballPos; set => ballPos = value; }
+    public GameManager GameManager { get => gameManager; set => gameManager = value; }
 
     public virtual void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         pv.RPC("SetInitialPos", RpcTarget.All);
+        MasterManager._instance.RPCMaster("AddPlayerToDic", PhotonNetwork.LocalPlayer, pv.ViewID);
         SetPlayerName();
     }
 

@@ -1,8 +1,8 @@
 1)[] MasterManager: 6 cositas que usen master manager:
 	[X] Sincronizar tiempo.
 	[X] Pegarle a la pelota.
-	[] mas chico el jugador y mas rapido o mas grande para bloquear una pelota (?
-	[] con la e cambiar el color de la pelota y reducirle la masa para el siguiente disparo (? cuenta doble*
+	[X] Spawnear Pared.
+	[X] Añadir jugadores a los diccionarios.
 	[] con la e cambiar el color de la pelota y reducirle la masa para el siguiente disparo (? cuenta doble*
 	[] mas chico el jugador y mas rapido o mas grande para bloquear una pelota (?
 

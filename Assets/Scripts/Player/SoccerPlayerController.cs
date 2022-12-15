@@ -21,6 +21,7 @@ public class SoccerPlayerController : SoccerPlayer
         Move();
         Shoot();
         HideShowChat();
+        SpawnWall();
     }
 
     private void Move() 
@@ -77,6 +78,18 @@ public class SoccerPlayerController : SoccerPlayer
                 ischatHidden = false;
             }
         }
+    }
+
+    private float spawnWallCd = 0f;
+
+    private void SpawnWall() 
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && !HasBall && spawnWallCd <= 0f) 
+        {
+            MasterManager._instance.RPCMaster("RequestSpawnWall", BallPos.position + Vector3.down);
+            spawnWallCd = 9.5f;
+        }
+        spawnWallCd -= Time.deltaTime;
     }
 
 }
